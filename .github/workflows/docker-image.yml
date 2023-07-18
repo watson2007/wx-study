@@ -1,0 +1,29 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: maven package
+      run: mvn clean package -Dmaven.test.skip=true
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag wx-study:$(date)
+    - name: Login to Aliyun Container Registry (ACR)
+      uses: aliyun/acr-login@v1
+      with:
+        login-server: https://registry.cn-hangzhou.aliyuncs.com
+        username: "${{ secrets.ACR_USERNAME }}"
+        password: "${{ secrets.ACR_PASSWORD }}"
+    - name: push image
+      run: docker pull registry.cn-hangzhou.aliyuncs.com/watson_cd/wx-study:$(date)
+  
