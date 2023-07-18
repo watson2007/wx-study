@@ -26,4 +26,6 @@ public class TestController {
     public String test() {
         return wxService.getWxMpConfigStorage().getAesKey();
     }
+
+
 }
