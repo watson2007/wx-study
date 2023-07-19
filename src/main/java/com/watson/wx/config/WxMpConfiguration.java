@@ -2,6 +2,7 @@ package com.watson.wx.config;
 
 import com.binarywang.spring.starter.wxjava.mp.properties.WxMpProperties;
 import com.watson.wx.handler.LogHandler;
+import com.watson.wx.handler.MsgHandler;
 import lombok.AllArgsConstructor;
 import me.chanjar.weixin.mp.api.WxMpMessageRouter;
 import me.chanjar.weixin.mp.api.WxMpService;
@@ -21,6 +22,7 @@ import org.springframework.context.annotation.Configuration;
 public class WxMpConfiguration {
 
     private final LogHandler logHandler;
+    private final MsgHandler msgHandler;
 
     @Bean
     public WxMpMessageRouter messageRouter(WxMpService wxMpService ) {
@@ -28,6 +30,9 @@ public class WxMpConfiguration {
 
         // 记录所有事件的日志 （异步执行）
         newRouter.rule().handler(logHandler).next();
+
+        // 消息处理
+        newRouter.rule().handler(msgHandler).end();
 
         return newRouter;
     }
