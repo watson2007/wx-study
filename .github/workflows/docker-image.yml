@@ -25,5 +25,5 @@ jobs:
         username: "${{ secrets.ACR_USERNAME }}"
         password: "${{ secrets.ACR_PASSWORD }}"
     - name: push image
-      run: docker pull registry.cn-hangzhou.aliyuncs.com/watson_cd/wx-study:4.0
+      run: docker push registry.cn-hangzhou.aliyuncs.com/watson_cd/wx-study:4.0
   
