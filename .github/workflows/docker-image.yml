@@ -17,7 +17,7 @@ jobs:
     - name: maven package
       run: mvn clean package -Dmaven.test.skip=true
     - name: Build the Docker image
-      run: docker build -f docker/Dockerfile -t wx-study:4.0 .
+      run: docker build -f docker/Dockerfile -t registry.cn-hangzhou.aliyuncs.com/watson_cd/wx-study:4.0 .
     - name: Login to Aliyun Container Registry (ACR)
       uses: aliyun/acr-login@v1
       with:
@@ -25,5 +25,5 @@ jobs:
         username: "${{ secrets.ACR_USERNAME }}"
         password: "${{ secrets.ACR_PASSWORD }}"
     - name: push image
-      run: docker pull registry.cn-hangzhou.aliyuncs.com/watson_cd/wx-study:4.0
+      run: docker push registry.cn-hangzhou.aliyuncs.com/watson_cd/wx-study:4.0
   
