@@ -32,7 +32,7 @@ public class WxMpConfiguration {
         newRouter.rule().handler(logHandler).next();
 
         // 消息处理
-        newRouter.rule().handler(msgHandler).end();
+        newRouter.rule().async(false).handler(msgHandler).end();
 
         return newRouter;
     }
